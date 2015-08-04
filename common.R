@@ -11,7 +11,15 @@ loadAStock <- function(code = 600150)
 		symbol <- sprintf("%06d.sz", code)
 	}
 	
-	return(getSymbols(symbol, auto.assign = F, src = "yahoo"))
+	loadStock(symbol)
+}
+
+loadStock <- function(symbol)
+{
+  data <- getSymbols(symbol, auto.assign = F, src = "yahoo")
+  names(data) <- c("Open", "High", "Low", "Close", "Volume", "Adjusted")
+  
+  return(data)
 }
 
 getStockDayFile <- function(code = 600150, dir = "C:\\new_hyzq_v6")
@@ -26,7 +34,7 @@ getStockDayFile <- function(code = 600150, dir = "C:\\new_hyzq_v6")
 	}
 }
 
-loadStock <- function(code = 600150, dir = "C:\\new_hyzq_v6")
+loadStockFromHyzqFile <- function(code = 600150, dir = "C:\\new_hyzq_v6")
 {
 	if(code >= 600000)
 	{
@@ -56,4 +64,9 @@ loadStock <- function(code = 600150, dir = "C:\\new_hyzq_v6")
 	close(f)
 	
 	history
+}
+
+plotStock <- function(data)
+{
+  plot(x = index(data), y = data$Adjusted)
 }
