@@ -1,3 +1,19 @@
+library(quantmod)
+
+loadAStock <- function(code = 600150)
+{
+	if(code >= 600000)
+	{
+		symbol <- sprintf("%06d.ss", code)
+	}
+	else
+	{
+		symbol <- sprintf("%06d.sz", code)
+	}
+	
+	return(getSymbols(symbol, auto.assign = F, src = "yahoo"))
+}
+
 getStockDayFile <- function(code = 600150, dir = "C:\\new_hyzq_v6")
 {
 	if(code >= 600000)

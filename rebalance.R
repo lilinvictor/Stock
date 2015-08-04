@@ -6,6 +6,7 @@ rebalance <- function(code = 600150, cashRate = 50, cashRateChange = 10, upRate 
 	# Rebalance when stock price raise up upRate%, or drop down downRate%
 	# Adjust cash rate: decrease cashRateChange% when price raise up, increase otherwise
 	tradeHistory <- NULL
+	defaultCashRate <- cashRate
 
 	# Load stock data
 	data = loadStock(code)
@@ -47,9 +48,9 @@ rebalance <- function(code = 600150, cashRate = 50, cashRateChange = 10, upRate 
 			else
 			{
 				cashRate <- cashRate + cashRateChange
-				if(cashRate >= 100)
+				if(cashRate >= defaultCashRate)
 				{
-					cashRate <- 100
+					cashRate <- defaultCashRate
 				}
 			}
 			
